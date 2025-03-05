@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-//const connectDB = require('./config/db');
+const connectDB = require('./config/db');
 const router = require('./routes');
 require('dotenv').config();
 const mongoose= require('mongoose')
@@ -20,25 +20,25 @@ app.use(cors({
     allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
   }));
 
-//require('./config/db');
+require('./config/db');
 app.use('/api', router);
-//const PORT =  8080;
-   mongoose.connect('mongodb://127.0.0.1/bookstore')          
-// connectDB()
-//     .then(() => {
-//         app.listen(PORT, () => {
-//             console.log(`Server is running on port ${PORT}`);
-//             console.log('Connected to the database');
-//         });
-//     })
-//     .catch((err) => {
-//         console.error('Error connecting to the database:', err);
-//     });
+const PORT =  8080;
+   //mongoose.connect('mongodb://127.0.0.1/bookstore')          
+connectDB()
+    .then(() => {
+        app.listen(PORT, () => {
+            console.log(`Server is running on port ${PORT}`);
+            console.log('Connected to the database');
+        });
+    })
+    .catch((err) => {
+        console.error('Error connecting to the database:', err);
+    });
 
 
-app.listen(4000,()=>{
-    console.log('server is running')
-})
+// app.listen(4000,()=>{
+//     console.log('server is running')
+// })
 
 
 
@@ -46,8 +46,8 @@ app.listen(4000,()=>{
 
 
 
-// app.get('/', (req,res) =>
-// {
-//     res.send("hello ecom");
-// }
-// );
+app.get('/', (req,res) =>
+{
+    res.send("hello ecom");
+}
+);
