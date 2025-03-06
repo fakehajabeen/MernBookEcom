@@ -13,7 +13,12 @@ const app= express();
 app.use(cookieParser())
 app.use(express.json());
 
-app.use(cors({ origin: "https://mern-book-ecom-og7b.vercel.app" }));
+app.use(cors({
+    origin: "https://mern-book-ecom-og7b.vercel.app" ,
+    credentials: true, // Replace with the exact URL of your frontend
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
+    allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
+  }));
 
 
 require('./config/db');
