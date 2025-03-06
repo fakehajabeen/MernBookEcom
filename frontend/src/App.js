@@ -16,7 +16,7 @@ const dispatch= useDispatch();
 const[cartProductCount, setCartProductCount]= useState(0)
 
   const fetchUserDetails = async () => {
-    const dataResponse = await fetch("http://localhost:4000/api/user-details"
+    const dataResponse = await fetch("https://mern-book-ecom.vercel.app/api/user-details"
 , {
       method: SummaryApi.current_user.method,
       credentials: 'include',
