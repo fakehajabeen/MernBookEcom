@@ -1,53 +1,23 @@
 const express = require('express');
 const cors = require('cors');
-const connectDB = require('./config/db');
-const router = require('./routes');
+const connectDB = require('../config/db');
+const router = require('../routes');
 require('dotenv').config();
-const mongoose= require('mongoose')
-const cookieParser = require('cookie-parser')
+const cookieParser = require('cookie-parser');
 
-
-
-
-const app= express();
-app.use(cookieParser())
+const app = express();
+app.use(cookieParser());
 app.use(express.json());
 
 app.use(cors({
-  origin: 'https://mern-book-ecom-og7b.vercel.app', // Allow only this frontend
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true
+    origin: "https://mern-book-ecom-og7b.vercel.app",
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
+connectDB();
 
-require('./config/db');
 app.use('/api', router);
-const PORT =  8080;
-   //mongoose.connect('mongodb://127.0.0.1/bookstore')          
-connectDB()
-    .then(() => {
-        app.listen(PORT, () => {
-            console.log(`Server is running on port ${PORT}`);
-            console.log('Connected to the database');
-        });
-    })
-    .catch((err) => {
-        console.error('Error connecting to the database:', err);
-    });
 
-
-// app.listen(4000,()=>{
-//     console.log('server is running')
-// })
-
-
-
-// Enable CORS
-
-
-
-app.get('/', (req,res) =>
-{
-    res.send("hello ecom");
-}
-);
+module.exports = app; // Required for Vercel serverless functions
