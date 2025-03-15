@@ -31,7 +31,7 @@ connectDB()
 
 
 app.get('/', (req, res) => {
-    res.send("Hello from Vercel backend!");
+    res.json({ message: "Hello from Vercel backend!", status: "success" });
 });
 
 module.exports = app;
