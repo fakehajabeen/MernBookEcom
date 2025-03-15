@@ -3,6 +3,7 @@ const cors = require('cors');
 const connectDB = require('../config/db');
 const router = require('../routes');
 require('dotenv').config();
+const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 
 const app = express();
@@ -16,8 +17,18 @@ app.use(cors({
     allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
-connectDB();
+connectDB()
+    .then(() => {
+        console.log('Connected to the database');
+    })
+    .catch((err) => {
+        console.error('Error connecting to the database:', err);
+    });
 
 app.use('/api', router);
 
-module.exports = app; // Required for Vercel serverless functions
+app.get('/', (req, res) => {
+    res.send("hello ecom");
+});
+
+module.exports = app;
