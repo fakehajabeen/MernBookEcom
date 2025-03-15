@@ -1,9 +1,8 @@
 const express = require('express');
 const cors = require('cors');
-//const connectDB = require('../config/db');
-const router = require('../routes');
-//require('dotenv').config();
-const mongoose = require('mongoose');
+const connectDB = require('./config/db');
+const router = require('./routes');
+require('dotenv').config();
 const cookieParser = require('cookie-parser');
 
 const app = express();
@@ -17,27 +16,22 @@ app.use(cors({
     allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
-const MONGO_URI = "mongodb+srv://fakeha26:rahmat26@mern.3z9ik.mongodb.net/?retryWrites=true&w=majority&appName=MERN"; // Replace with your connection string
-
-mongoose.connect(MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
-.then(() => console.log('MongoDB connected successfully'))
-.catch((err) => console.error('MongoDB connection error:', err));
-
-// connectDB()
-//     .then(() => {
-//         console.log('Connected to the database');
-//     })
-//     .catch((err) => {
-//         console.error('Error connecting to the database:', err);
-//     });
-
+require('./config/db');
 app.use('/api', router);
+//const PORT =  8080;
+   //mongoose.connect('mongodb://127.0.0.1/bookstore')          
+
+connectDB()
+    .then(() => {
+        console.log('Connected to the database');
+    })
+    .catch((err) => {
+        console.error('Error connecting to the database:', err);
+    });
+
 
 app.get('/', (req, res) => {
-    res.send("hello ecom");
+    res.send("Hello from Vercel backend!");
 });
 
 module.exports = app;
