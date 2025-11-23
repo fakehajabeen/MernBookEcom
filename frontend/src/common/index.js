@@ -1,4 +1,4 @@
-const backendDomin = "https://mern-book-ecom-me1d.vercel.app"
+const backendDomin = "https://backeecom.onrender.com/"
 
 const SummaryApi = {
     signUP : {
